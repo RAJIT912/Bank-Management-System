@@ -11,7 +11,7 @@ using namespace std;
 class account
 {
 	int acno;
-	string name;
+	char name[50];
 	int deposit;
 	char type;
 public:
@@ -28,12 +28,12 @@ public:
 
 void account::create_account()
 {
-	system("clear");
+	system("cls");
 	cout << "\n\t\t\tEnter the Account No. : ";
 	cin >> acno;
 	cout << "\n\n\t\t\tPlease Enter the Name of the Account holder Here : ";
-	// cin.ignore();
-	cin>>name;
+	cin.ignore();// check
+	cin.getline(name, 50);
 	cout << "\n\t\t\tEnter Type of the Account (C/S) : ";
 	cin >> type;
 	type = toupper(type);
@@ -56,9 +56,8 @@ void account::modify()
 {
 	cout << "\n\t\t\tAccount No. : " << acno;
 	cout << "\n\t\t\tModify Account Holder Name : ";
-	// cin.ignore();
-	cin>>name;
-	// cin.getline(name, 50);
+	cin.ignore();
+	cin.getline(name, 50);
 	cout << "\n\t\t\tModify Type of Account : ";
 	cin >> type;
 	type = toupper(type);
@@ -164,7 +163,7 @@ int main()
 			break;
 		case '8':
 			system("CLS");
-			cout << "\n\n\t\t\tThank You!!!";
+			cout << "\n\n\t\t\tThank You!!!!";
 			break;
 		default:cout << "\a";
 		}
@@ -173,8 +172,6 @@ int main()
 	} while (ch != '8');
 	return 0;
 }
-
-
 void write_account()
 {
 	account ac;
@@ -184,7 +181,6 @@ void write_account()
 	outFile.write(reinterpret_cast<char*> (&ac), sizeof(account));
 	outFile.close();
 }
-
 void display_sp(int n)
 {
 	account ac;
@@ -209,15 +205,12 @@ void display_sp(int n)
 	if (flag == false)
 		cout << "\n\n\t\t\tAccount number does not exist";
 }
-
-
-
 void modify_account(int n)
 {
 	bool found = false;
 	account ac;
 	fstream File;
-	File.open("account.dat", ios::binary | ios::in | ios::out);
+	File.open("account.dat", ios::binary | ios::in | ios::out);// check
 	if (!File)
 	{
 		cout << "File could not be open !! Press any Key...";
@@ -242,9 +235,6 @@ void modify_account(int n)
 	if (found == false)
 		cout << "\n\n\t\t\tRecord Not Found ";
 }
-
-
-
 void delete_account(int n)
 {
 	account ac;
@@ -257,7 +247,7 @@ void delete_account(int n)
 		return;
 	}
 	outFile.open("Temp.dat", ios::binary);
-	inFile.seekg(0, ios::beg);
+	inFile.seekg(0, ios::beg);// check
 	while (inFile.read(reinterpret_cast<char*> (&ac), sizeof(account)))
 	{
 		if (ac.retacno() != n)
@@ -333,7 +323,7 @@ void deposit_withdraw(int n, int option)
 					ac.draw(amt);
 			}
 			int pos = (-1) * static_cast<int>(sizeof(ac));
-			File.seekp(pos, ios::cur);//fn1353
+			File.seekp(pos, ios::cur);
 			File.write(reinterpret_cast<char*> (&ac), sizeof(account));
 			cout << "\n\n\t\t\tRecord Updated";
 			found = true;
