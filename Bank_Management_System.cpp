@@ -11,7 +11,7 @@ using namespace std;
 class account
 {
 	int acno;
-	char name[50];
+	string name;
 	int deposit;
 	char type;
 public:
@@ -32,8 +32,8 @@ void account::create_account()
 	cout << "\n\t\t\tEnter the Account No. : ";
 	cin >> acno;
 	cout << "\n\n\t\t\tPlease Enter the Name of the Account holder Here : ";
-	cin.ignore();
-	cin.getline(name, 50);
+	// cin.ignore();
+	cin>>name;
 	cout << "\n\t\t\tEnter Type of the Account (C/S) : ";
 	cin >> type;
 	type = toupper(type);
@@ -56,8 +56,9 @@ void account::modify()
 {
 	cout << "\n\t\t\tAccount No. : " << acno;
 	cout << "\n\t\t\tModify Account Holder Name : ";
-	cin.ignore();
-	cin.getline(name, 50);
+	// cin.ignore();
+	cin>>name;
+	// cin.getline(name, 50);
 	cout << "\n\t\t\tModify Type of Account : ";
 	cin >> type;
 	type = toupper(type);
